@@ -19,4 +19,9 @@
         android:name="com.ffc.geekyevent.Fragment2View"
         android:label="fragment2_view"
         tools:layout="@layout/fragment2_view" />
+    <fragment
+        android:id="@+id/vueStandFragment"
+        android:name="com.ffc.geekyevent.vue.VueStandFragment"
+        android:label="fragment_vue_stand"
+        tools:layout="@layout/fragment_vue_stand" />
 </navigation>
