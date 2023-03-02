@@ -8,6 +8,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/bonjour_voici_un_deuxieme_fragment" />
+        android:text="Participer aux evenements suiva-..... Attendez..... Il n'y a rien...." />
 
 </FrameLayout>
