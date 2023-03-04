@@ -1,31 +1,29 @@
 package com.ffc.geekyevent.vue
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
-import com.ffc.geekyevent.model.Datasource
 import com.ffc.geekyevent.model.Stand
+import com.ffc.geekyevent.viewmodel.ViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class VueStandFragment : Fragment() {
+
+    private val viewModel: ViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    @SuppressLint("StringFormatInvalid")
+    @SuppressLint("StringFormatInvalid", "StringFormatMatches")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,11 +32,12 @@ class VueStandFragment : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_vue_stand, container, false)
 
         val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_stand)
-        val myDataset = Datasource().loadStand()
-        recyclerView.adapter = ItemStandAdapter(myDataset)
+
+        recyclerView.adapter = ItemStandAdapter(viewModel.listeStand)
         recyclerView.setHasFixedSize(true) //=veut dire que la liste a la meme taille
 
-        inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.getString(R.string.nombre_de_stand,myDataset.size)
+        inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
+            getString(R.string.nombre_de_stand,viewModel.listeStand.size)
 
         return inflate ;
     }

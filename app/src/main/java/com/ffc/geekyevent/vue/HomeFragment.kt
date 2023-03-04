@@ -1,16 +1,12 @@
-package com.ffc.geekyevent
+package com.ffc.geekyevent.vue
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.ffc.geekyevent.R
 import com.ffc.geekyevent.databinding.FragmentHomeBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,7 +19,8 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,R.layout.fragment_home,container,false);
+        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
+            R.layout.fragment_home,container,false);
 
         binding.button.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_fragment2View)

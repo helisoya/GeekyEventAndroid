@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.ffc.geekyevent.HomeFragment"
+        android:name="com.ffc.geekyevent.vue.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment2View"
-        android:name="com.ffc.geekyevent.Fragment2View"
+        android:name="com.ffc.geekyevent.vue.Fragment2View"
         android:label="fragment2_view"
         tools:layout="@layout/fragment2_view" />
     <fragment
