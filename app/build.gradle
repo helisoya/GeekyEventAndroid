@@ -51,6 +51,7 @@ dependencies {
     implementation "com.google.android.material:material:$version"
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation group: 'org.simpleframework', name: 'simple-xml', version: '2.7.1'
 
 
 }

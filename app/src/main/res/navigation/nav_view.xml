@@ -24,4 +24,9 @@
         android:name="com.ffc.geekyevent.vue.VueStandFragment"
         android:label="fragment_vue_stand"
         tools:layout="@layout/fragment_vue_stand" />
+    <fragment
+        android:id="@+id/carteFragment"
+        android:name="com.ffc.geekyevent.vue.carteFragment"
+        android:label="fragment_carte"
+        tools:layout="@layout/fragment_carte" />
 </navigation>
