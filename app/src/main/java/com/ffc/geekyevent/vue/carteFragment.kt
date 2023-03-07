@@ -5,6 +5,7 @@ import android.R.attr.right
 import android.annotation.SuppressLint
 import android.graphics.*
 import android.os.Bundle
+import android.util.Half.toFloat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -60,15 +61,12 @@ class carteFragment : Fragment() {
                 Log.i("aa","Touch coordinates : " +
                         event.x + "x" + event.y
                 )
+                viewModel.annalyserClick(event.x,event.y)
                 drawSomething(WIDTH,HEIGHT)
             }
             return@OnTouchListener true
         })
 
-//        val propX = WIDTH/126
-//        val propY = HEIGHT/88
-//        viewModel.formatRect(propX,propY)
-//        drawSomething(WIDTH,HEIGHT)
     }
 
     override fun onStart() {
@@ -81,20 +79,22 @@ class carteFragment : Fragment() {
 
 
     fun drawSomething(width:Int,height:Int) {
-        val colorBack = ResourcesCompat.getColor(resources, R.color.colorBackground,null)
+        val colorBlanc = Paint(Paint.LINEAR_TEXT_FLAG)
+        colorBlanc.setARGB(255,255,255,255)
+        colorBlanc.textSize=50F
 
-            mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            mImageView.setImageBitmap(mBitmap);
-            mCanvas = Canvas(mBitmap)
-            mCanvas.drawColor(colorBack)
+        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        mImageView.setImageBitmap(mBitmap);
+        mCanvas = Canvas(mBitmap)
 
-            mPaint.setColor(ResourcesCompat.getColor(resources, R.color.colorFond,null));
-            viewModel.fontFomate.forEach {r->
-                mCanvas.drawRect(r,mPaint)
-            }
-            mPaint.setColor(ResourcesCompat.getColor(resources, R.color.colorRectangle,null));
-            viewModel.standFormate.forEach {r->
-                mCanvas.drawRect(r,mPaint)
-            }
+        mPaint.color = ResourcesCompat.getColor(resources, R.color.colorFond,null);
+        viewModel.fontFomate.forEach {r->
+            mCanvas.drawRect(r,mPaint)
+        }
+        viewModel.standFormate.forEach {r->
+//            mPaint.color=r.color
+            mCanvas.drawRect(r.rect,r.color)
+            mCanvas.drawText(r.id,((r.x+r.width)/2-45).toFloat(),r.rect.bottom.toFloat()-20,colorBlanc)
+        }
     }
 }
