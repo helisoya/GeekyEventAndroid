@@ -1,6 +1,7 @@
 package com.ffc.geekyevent.viewmodel
 
 import android.app.Application
+import android.graphics.Rect
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -9,10 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Datasource
 import com.ffc.geekyevent.model.Stand
-import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.ElementList
-import org.simpleframework.xml.Root
-import org.simpleframework.xml.Serializer
+import org.simpleframework.xml.*
 import org.simpleframework.xml.core.Persister
 import java.io.InputStreamReader
 
@@ -22,6 +20,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         get() = _listeStand
 
     val localisationStand : Svg
+    var standFormate: MutableList<Rect> = ArrayList()
+    var fontFomate: MutableList<Rect> = ArrayList()
 
     init{
         _listeStand = Datasource().loadStand()
@@ -32,7 +32,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     fun loadSVG() : Svg{
         val xmlToParse = InputStreamReader(getApplication<Application>().resources.openRawResource(R.raw.carte)).readText()
         val serializer: Serializer = Persister()
-        return serializer.read(Svg::class.java, xmlToParse)
+        val res= serializer.read(Svg::class.java, xmlToParse)
+        return res
     }
 
     fun annalyserClick(x:Float,y:Float){
@@ -44,6 +45,21 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                                     y<r.y.toFloat() +r.height.toFloat()  }
         Log.i("ImageView",res.toString())
     }
+
+    fun formatRect(propX: Int, propY: Int) {
+        localisationStand.rect.forEach { r->
+            standFormate.add(Rect(r.x.toDouble().toInt()*propX,
+                r.y.toDouble().toInt()*propY,
+                (r.x.toDouble().toInt()+r.width.toDouble().toInt())*propX,
+                (r.y.toDouble().toInt()+r.height.toDouble().toInt())*propY))
+        }
+        localisationStand.g.rect.forEach { r->
+            fontFomate.add(Rect(r.x.toDouble().toInt()*propX,
+                r.y.toDouble().toInt()*propY,
+                (r.x.toDouble().toInt()+r.width.toDouble().toInt())*propX,
+                (r.y.toDouble().toInt()+r.height.toDouble().toInt())*propY))
+        }
+    }
 }
 
 
@@ -51,8 +67,15 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 class Svg {
     @field:ElementList(inline = true, entry = "rect")
     lateinit var rect: List<RectSVG>
-}
 
+    @field:Element(name="g")
+    lateinit var g:classG
+}
+@Root(strict = false, name = "g")
+class classG {
+    @field:ElementList(inline = true, entry = "rect")
+    lateinit var rect: List<RectSVG>
+}
 @Root(strict = false, name = "rect")
 class RectSVG {
     @field:Attribute(name = "id", required = true)
