@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Stand
@@ -57,6 +58,9 @@ class ItemStandAdapter(private val dataset: List<Stand>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.stand_item, parent, false)
+        adapterLayout.setOnClickListener {
+            parent.findNavController().navigate(R.id.action_vueStandFragment_to_detailStand2)
+        }
 
         return ItemViewHolder(adapterLayout)
     }

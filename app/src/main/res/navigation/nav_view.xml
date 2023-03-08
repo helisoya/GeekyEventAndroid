@@ -23,10 +23,23 @@
         android:id="@+id/vueStandFragment"
         android:name="com.ffc.geekyevent.vue.VueStandFragment"
         android:label="fragment_vue_stand"
-        tools:layout="@layout/fragment_vue_stand" />
+        tools:layout="@layout/fragment_vue_stand" >
+        <action
+            android:id="@+id/action_vueStandFragment_to_detailStand2"
+            app:destination="@id/detailStand2" />
+    </fragment>
     <fragment
         android:id="@+id/carteFragment"
         android:name="com.ffc.geekyevent.vue.carteFragment"
         android:label="fragment_carte"
-        tools:layout="@layout/fragment_carte" />
+        tools:layout="@layout/fragment_carte" >
+        <action
+            android:id="@+id/action_carteFragment_to_detailStand2"
+            app:destination="@id/detailStand2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailStand2"
+        android:name="com.ffc.geekyevent.DetailStand"
+        android:label="fragment_detail_stand"
+        tools:layout="@layout/fragment_detail_stand" />
 </navigation>
