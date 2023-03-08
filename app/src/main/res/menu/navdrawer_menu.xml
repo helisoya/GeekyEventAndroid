@@ -9,6 +9,4 @@
     <item
         android:id="@+id/carteFragment"
         android:title="Carte" />
-    <item android:title="Item"
-        android:id="@+id/detailStand2"/>
 </menu>

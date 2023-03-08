@@ -12,12 +12,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Stand
-import com.ffc.geekyevent.viewmodel.ViewModel
+import com.ffc.geekyevent.viewmodel.StandViewModel
 
 
 class VueStandFragment : Fragment() {
 
-    private val viewModel: ViewModel by viewModels()
+    private val standViewModel: StandViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +34,11 @@ class VueStandFragment : Fragment() {
 
         val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_stand)
 
-        recyclerView.adapter = ItemStandAdapter(viewModel.listeStand)
+        recyclerView.adapter = ItemStandAdapter(standViewModel.listeStand)
         recyclerView.setHasFixedSize(true) //=veut dire que la liste a la meme taille
 
         inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
-            getString(R.string.nombre_de_stand,viewModel.listeStand.size)
+            getString(R.string.nombre_de_stand,standViewModel.listeStand.size)
 
         return inflate ;
     }

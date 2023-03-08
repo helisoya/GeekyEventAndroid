@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_homeFragment_to_fragment2View"
             app:destination="@id/fragment2View" />
+        <action
+            android:id="@+id/action_homeFragment_to_vueStandFragment"
+            app:destination="@id/vueStandFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_carteFragment"
+            app:destination="@id/carteFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment2View"
@@ -36,6 +42,9 @@
         <action
             android:id="@+id/action_carteFragment_to_detailStand2"
             app:destination="@id/detailStand2" />
+        <action
+            android:id="@+id/action_carteFragment_to_vueStandFragment"
+            app:destination="@id/vueStandFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailStand2"

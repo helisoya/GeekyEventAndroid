@@ -3,17 +3,11 @@ package com.ffc.geekyevent.viewmodel
 import android.app.Application
 import android.graphics.Paint
 import android.graphics.Rect
-import android.util.Half.toFloat
 import android.util.Log
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Datasource
 import com.ffc.geekyevent.model.Stand
-import com.ffc.geekyevent.vue.carteFragment
 import org.simpleframework.xml.*
 import org.simpleframework.xml.core.Persister
 import java.io.InputStreamReader
@@ -29,12 +23,12 @@ data class RectStand(val x : Int,val y: Int, val width:Int,val height : Int,val 
     }
 
 }
-class ViewModel(application: Application) : AndroidViewModel(application) {
+class StandViewModel(application: Application) : AndroidViewModel(application) {
     private var _listeStand : List<Stand>
     val listeStand :List<Stand>
         get() = _listeStand
 
-    val standSVG: LoadCarte.Svg
+    private val standSVG: LoadCarte.Svg
     var standFormate = ArrayList<RectStand>()
     var fontFomate = ArrayList<Rect>()
 
@@ -57,8 +51,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                                     x<r.rect.right.toFloat()  &&
                                     y>r.rect.top.toFloat()  &&
                                     y<r.rect.bottom.toFloat()  }
-//        Log.i("ImageView",res.toString())
 //        res?.color?.setARGB(128,255,0,0)
+//        Log.i("ImageView",res.toString())
 //        standTexte()
         return res
     }
