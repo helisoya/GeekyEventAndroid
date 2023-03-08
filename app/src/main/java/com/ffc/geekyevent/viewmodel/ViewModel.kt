@@ -20,6 +20,7 @@ import java.io.InputStreamReader
 data class RectStand(val x : Int,val y: Int, val width:Int,val height : Int,val id:String) {
     val rect = Rect(x,y,width,height)
     var color = Paint()
+    var exist = false
     init{
         color.setARGB(255,0,0,0)
     }
@@ -33,7 +34,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     val listeStand :List<Stand>
         get() = _listeStand
 
-    lateinit var standSVG: LoadCarte.Svg
+    val standSVG: LoadCarte.Svg
     var standFormate = ArrayList<RectStand>()
     var fontFomate = ArrayList<Rect>()
 
@@ -46,6 +47,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         val propX = WIDTH/126
         val propY = HEIGHT/88
         formatRect(propX,propY)
+        syncCarteWithModel()
 //        standTexte()
     }
 
@@ -56,7 +58,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                                     y>r.rect.top.toFloat()  &&
                                     y<r.rect.bottom.toFloat()  }
 //        Log.i("ImageView",res.toString())
-        res?.color?.setARGB(128,255,0,0)
+//        res?.color?.setARGB(128,255,0,0)
 //        standTexte()
         return res
     }
@@ -68,6 +70,16 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     fun standTexte(){
         standFormate.forEach {
             Log.i("aaaaaaa",it.color.color.toString())
+        }
+    }
+
+    fun syncCarteWithModel(){
+        listeStand.forEach { s->
+            val res = standFormate.find{r-> r.id.toInt()==s.id}
+            if (res!=null){
+                res.color.setARGB(128,255,0,0)
+                res.exist=true
+            }
         }
     }
 
@@ -84,10 +96,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                 (r.x.toDouble().toInt()+r.width.toDouble().toInt())*propX,
                 (r.y.toDouble().toInt()+r.height.toDouble().toInt())*propY))
         }
-    }
-
-    fun color(res: RectStand) {
-        res.color.setARGB(128,255,0,0)
     }
 
 }

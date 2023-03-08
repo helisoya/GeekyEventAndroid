@@ -30,7 +30,7 @@ class VueStandFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val inflate = inflater.inflate(R.layout.fragment_vue_stand, container, false)
+        val inflate = inflater.inflate(R.layout.fragment_liste_stand, container, false)
 
         val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_stand)
 
@@ -58,11 +58,13 @@ class ItemStandAdapter(private val dataset: List<Stand>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.stand_item, parent, false)
+        val detailStand = ItemViewHolder(adapterLayout)
         adapterLayout.setOnClickListener {
-            parent.findNavController().navigate(R.id.action_vueStandFragment_to_detailStand2)
+//            parent.findNavController().navigate(R.id.action_vueStandFragment_to_detailStand2)
+            parent.findNavController().navigate(VueStandFragmentDirections.actionVueStandFragmentToDetailStand2(detailStand.idStand.text.toString().toInt()))
         }
 
-        return ItemViewHolder(adapterLayout)
+        return detailStand
     }
 
     override fun getItemCount(): Int {

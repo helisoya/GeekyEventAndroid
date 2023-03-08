@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailStand">
+    tools:context=".vue.DetailStand"
+    android:orientation="vertical">
+
 
     <TextView
+        android:id="@+id/nomStand"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="NomStand : " />
+        android:layout_height="wrap_content"
+        android:text="Nom du stand" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/idStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Id di stand" />
+
+    <TextView
+        android:id="@+id/descriptionStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="descrition du stad" />
+
+    <TextView
+        android:id="@+id/typeStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Id type stand" />
+
+    <TextView
+        android:id="@+id/nomPresta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nom du stand" />
+
+
+</LinearLayout>

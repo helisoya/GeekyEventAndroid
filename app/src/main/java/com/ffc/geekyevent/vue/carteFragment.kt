@@ -54,11 +54,10 @@ class carteFragment : Fragment() {
         mImageView.setOnTouchListener(View.OnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN){
                 val res= viewModel.annalyserClick(event.x,event.y)
-                if (res != null) {
-                    viewModel.color(res)
-                    drawSomething()
-                    view.findNavController().navigate(R.id.action_carteFragment_to_detailStand2)
-//                    action_carteFragment_to_detailStand2
+                if (res != null && res.exist) {
+//                    viewModel.color(res)
+//                    drawSomething()
+                    view.findNavController().navigate(carteFragmentDirections.actionCarteFragmentToDetailStand2(res.id.toInt()))
                 }
             }
             return@OnTouchListener true
