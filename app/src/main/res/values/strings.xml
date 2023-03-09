@@ -2,8 +2,9 @@
     <string name="app_name">Geeky Event</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="bonjour_voici_un_deuxieme_fragment">Bonjour voici un deuxieme fragment</string>
-    <string name="nombre_de_stand">Nombre de stand %s</string>
+    <string name="nombre_de_stand">Nombre de stand : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="presentation_event">Geeky Event est un festival de la culture Geek ou vous pouvez participer à des tournois, regarder des conférences ou encore acheter des crepes.</string>
+    <string name="nombre_de_events">nombre d\'evenements : %s</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,7 @@ class VueStandFragment : Fragment() {
 
         inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
             getString(R.string.nombre_de_stand,standViewModel.listeStand.size)
-
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Liste des stands"
         return inflate ;
     }
 }

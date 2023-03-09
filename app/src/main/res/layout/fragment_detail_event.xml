@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vue.DetailEvent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/nomEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nom du stand" />
+
+    <TextView
+        android:id="@+id/idEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Id di stand" />
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Id type stand" />
+
+    <TextView
+        android:id="@+id/nbJoueurs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nom du stand" />
+
+    <Button
+        android:id="@+id/buttonStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voir Stand" />
+
+
+</LinearLayout>

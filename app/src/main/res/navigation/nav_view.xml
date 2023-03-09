@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_fragment2View"
-            app:destination="@id/fragment2View" />
+            app:destination="@id/FragmentEvents" />
         <action
             android:id="@+id/action_homeFragment_to_vueStandFragment"
             app:destination="@id/vueStandFragment" />
@@ -21,10 +21,14 @@
             app:destination="@id/carteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragment2View"
-        android:name="com.ffc.geekyevent.vue.Fragment2View"
+        android:id="@+id/FragmentEvents"
+        android:name="com.ffc.geekyevent.vue.FragmentEvents"
         android:label="fragment2_view"
-        tools:layout="@layout/fragment2_view" />
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_fragment2View_to_detailEvent"
+            app:destination="@id/detailEvent" />
+    </fragment>
     <fragment
         android:id="@+id/vueStandFragment"
         android:name="com.ffc.geekyevent.vue.VueStandFragment"
@@ -53,6 +57,17 @@
         tools:layout="@layout/fragment_detail_stand" >
         <argument
             android:name="idStand"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailEvent"
+        android:name="com.ffc.geekyevent.vue.DetailEvent"
+        android:label="DetailEvent">
+        <action
+            android:id="@+id/action_detailEvent_to_detailStand2"
+            app:destination="@id/detailStand2" />
+        <argument
+            android:name="idEvent"
             app:argType="integer" />
     </fragment>
 </navigation>

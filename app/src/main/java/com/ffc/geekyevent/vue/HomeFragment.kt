@@ -2,6 +2,7 @@ package com.ffc.geekyevent.vue
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -26,18 +27,19 @@ class HomeFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home,container,false);
 
-        binding.button.setOnClickListener { view : View ->
+        binding.buttonEvents.setOnClickListener { view : View ->
             view.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToFragment2View())
         }
-        binding.button3.setOnClickListener { view->
+        binding.buttonStands.setOnClickListener { view->
             view.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToVueStandFragment())
         }
-        binding.button4.setOnClickListener { view->
+        binding.buttonMap.setOnClickListener { view->
             view.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarteFragment())
         }
 
-        binding.textView5.text = "Nombre de stands sur l'vevenement : "+standViewModel.listeStand.size
+        binding.nbStand.text = "Nombre de stands sur l'vevenement : "+standViewModel.listeStand.size
 
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Acceuil"
 //        setHasOptionsMenu(true)//menu option (3 petits points)
         return binding.root
     }

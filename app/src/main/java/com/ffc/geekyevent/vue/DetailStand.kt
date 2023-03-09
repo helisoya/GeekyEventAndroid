@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.viewmodel.StandViewModel
@@ -33,6 +34,7 @@ class DetailStand : Fragment() {
             view.findViewById<TextView>(R.id.typeStand).text = data.typeStand
             view.findViewById<TextView>(R.id.nomPresta).text = data.presta
         }
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail stand"
     }
 
 }
