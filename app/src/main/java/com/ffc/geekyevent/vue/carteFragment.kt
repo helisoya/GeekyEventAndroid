@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.ffc.geekyevent.R
@@ -33,7 +34,7 @@ class carteFragment : Fragment() {
     lateinit var mImageView : ImageView
     private val mPaint: Paint = Paint(Paint.UNDERLINE_TEXT_FLAG)
 
-    private val standViewModel: StandViewModel by viewModels()
+    private val standViewModel: StandViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +54,6 @@ class carteFragment : Fragment() {
                 val res= standViewModel.annalyserClick(event.x,event.y)
 //                    drawSomething()
                 if (res != null && res.exist) {
-//                    viewModel.color(res)
                     view.findNavController().navigate(carteFragmentDirections.actionCarteFragmentToDetailStand2(res.id.toInt()))
                 }
             }

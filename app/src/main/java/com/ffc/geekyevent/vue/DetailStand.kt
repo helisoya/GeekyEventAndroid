@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.ffc.geekyevent.R
@@ -15,7 +16,7 @@ import com.ffc.geekyevent.viewmodel.StandViewModel
 
 class DetailStand : Fragment() {
 
-    private val standViewModel: StandViewModel by viewModels()
+    private val standViewModel: StandViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

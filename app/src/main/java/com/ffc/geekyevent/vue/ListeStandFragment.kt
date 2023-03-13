@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.ffc.geekyevent.viewmodel.StandViewModel
 
 class VueStandFragment : Fragment() {
 
-    private val standViewModel: StandViewModel by viewModels()
+    private val standViewModel: StandViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
