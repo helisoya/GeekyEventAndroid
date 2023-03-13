@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.ffc.geekyevent.R
@@ -19,6 +20,7 @@ import java.nio.file.Files.find
 class DetailEvent : Fragment() {
 
     private lateinit var data: Event
+    private val standViewModel: StandViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +34,7 @@ class DetailEvent : Fragment() {
         val args = DetailEventArgs.fromBundle(requireArguments())
 
 
-        val source = Datasource()
-        data = source.loadEvents().find { s -> s.id == args.idEvent }!!
+        data = standViewModel.listeEvenement.find { s -> s.id == args.idEvent }!!
         if (data != null) {
             view.findViewById<TextView>(R.id.nomEvent).text = data.nom
             view.findViewById<TextView>(R.id.idEvent).text = data.id.toString()

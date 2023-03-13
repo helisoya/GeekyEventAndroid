@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.ffc.geekyevent.R
@@ -20,6 +21,7 @@ import java.nio.file.Files.find
 class DetailPrestataire : Fragment() {
 
     private lateinit var data: Prestataire
+    private val standViewModel: StandViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +35,8 @@ class DetailPrestataire : Fragment() {
         val args = DetailPrestataireArgs.fromBundle(requireArguments())
 
 
-        val source = Datasource()
-        data = source.loadPrestataires().find { s -> s.id == args.id}!!
+//        val source = Datasource()
+        data = standViewModel.listePresta.find { s -> s.id == args.id}!!
         if (data != null) {
             view.findViewById<TextView>(R.id.nomPresta).text = data.prenom + " " + data.nom
             view.findViewById<TextView>(R.id.mailPresta).text = data.mail

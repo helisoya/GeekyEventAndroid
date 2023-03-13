@@ -12,6 +12,8 @@
     <item
         android:id="@+id/FragmentEvents"
         android:title="Events" />
+    <item android:id="@+id/connection"
+        android:title="Connection" />
     <item
         android:id="@+id/fragmentPrestataires"
         android:title="Prestataires" />

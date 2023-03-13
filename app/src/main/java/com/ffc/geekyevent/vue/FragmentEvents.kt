@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Datasource
 import com.ffc.geekyevent.model.Event
 import com.ffc.geekyevent.model.Stand
+import com.ffc.geekyevent.viewmodel.StandViewModel
 import javax.sql.DataSource
 
 /**
@@ -21,6 +23,7 @@ import javax.sql.DataSource
  * create an instance of this fragment.
  */
 class FragmentEvents : Fragment() {
+    private val standViewModel: StandViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,8 +36,7 @@ class FragmentEvents : Fragment() {
 
         val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_events)
         // Inflate the layout for this fragment
-        val source =  Datasource()
-        val data = source.loadEvents()
+        val data = standViewModel.listeEvenement
         recyclerView.adapter = ItemEventsAdapter(data)
         recyclerView.setHasFixedSize(true)
 

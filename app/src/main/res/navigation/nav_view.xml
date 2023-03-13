@@ -89,4 +89,9 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/connection"
+        android:name="com.ffc.geekyevent.vue.Connection"
+        android:label="fragment_connection"
+        tools:layout="@layout/fragment_connection" />
 </navigation>

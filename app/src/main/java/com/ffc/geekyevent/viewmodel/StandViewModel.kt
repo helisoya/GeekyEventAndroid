@@ -7,40 +7,40 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Datasource
+import com.ffc.geekyevent.model.Event
+import com.ffc.geekyevent.model.Prestataire
 import com.ffc.geekyevent.model.Stand
 import org.simpleframework.xml.*
 import org.simpleframework.xml.core.Persister
 import java.io.InputStreamReader
-data class RectStand(val x : Int,val y: Int, val width:Int,val height : Int,val id:String) {
-    val rect = Rect(x,y,width,height)
-    var color = Paint()
-    var exist = false
-    init{
-        color.setARGB(255,0,0,0)
-    }
-    override fun toString(): String {
-        return "RectStand(x=$x, y=$y, width=$width, height=$height, id='$id', rect=$rect, color=$color)"
-    }
 
-}
 class StandViewModel(application: Application) : AndroidViewModel(application) {
     private var _listeStand : List<Stand>
     val listeStand :List<Stand>
         get() = _listeStand
 
-    private val standSVG: LoadCarte.Svg
+    private var _listePresta : List<Prestataire>
+    val listePresta : List<Prestataire>
+        get() = _listePresta
+
+    private var _listeEvenement : List<Event>
+    val listeEvenement : List<Event>
+        get() = _listeEvenement
+
     var standFormate = ArrayList<RectStand>()
     var fontFomate = ArrayList<Rect>()
 
     val WIDTH = 1700;
     val HEIGHT = 1200;
 
+    var isconnected =false
+    var user=null
+
     init{
-        standSVG = LoadCarte(application).loadSVG()
-        _listeStand = Datasource().loadStand()
-        val propX = WIDTH/126
-        val propY = HEIGHT/88
-        formatRect(propX,propY)
+        _listeStand = Datasource().loadStand()//data stand
+        _listePresta = Datasource().loadPrestataires()
+        _listeEvenement = Datasource().loadEvents()
+        loadCarte(application,WIDTH/126,HEIGHT/88)//svg pour afficher carte
         syncCarteWithModel()
     }
 
@@ -54,11 +54,6 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         return res
     }
 
-    fun standTexte(){
-        standFormate.forEach {
-            Log.i("aaaaaaa",it.color.color.toString())
-        }
-    }
 
     fun syncCarteWithModel(){
         listeStand.forEach { s->
@@ -69,8 +64,8 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
-    fun formatRect(propX: Int, propY: Int) {
+    fun loadCarte(application: Application,propX: Int, propY: Int) {
+        val standSVG = LoadCarte(application).loadSVG()
         standSVG.rect.forEach { r->
             standFormate.add(RectStand(r.x.toDouble().toInt()*propX,
                 r.y.toDouble().toInt()*propY,
@@ -85,43 +80,4 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-}
-
-class LoadCarte(val application: Application){
-    fun loadSVG(): Svg {
-        val xmlToParse = InputStreamReader(application.resources.openRawResource(R.raw.carte)).readText()
-        val serializer: Serializer = Persister()
-        val res= serializer.read(Svg::class.java, xmlToParse)
-        return res
-    }
-    @Root(name = "svg", strict = false)
-    class Svg {
-        @field:ElementList(inline = true, entry = "rect")
-        lateinit var rect: List<RectSVG>
-
-        @field:Element(name="g")
-        lateinit var g:classG
-    }
-    @Root(strict = false, name = "g")
-    class classG {
-        @field:ElementList(inline = true, entry = "rect")
-        lateinit var rect: List<RectSVG>
-    }
-    @Root(strict = false, name = "rect")
-    class RectSVG {
-        @field:Attribute(name = "id", required = true)
-        var id:String=""
-        @field:Attribute(name = "width", required = false)
-        var width: String =""
-        @field:Attribute(name = "height", required = false)
-        var height: String =""
-        @field:Attribute(name = "x", required = false)
-        var x: String = ""
-        @field:Attribute(name = "y", required = false)
-        var y: String = ""
-        override fun toString(): String {
-            return "RectSVG(width=$width, height=$height, x=$x, y=$y, id=$id)"
-        }
-
-    }
 }
