@@ -42,23 +42,16 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         val propY = HEIGHT/88
         formatRect(propX,propY)
         syncCarteWithModel()
-//        standTexte()
     }
 
     fun annalyserClick(x:Float,y:Float) : RectStand? {
-//        Log.i("aa","Touch coordinates : " + x + "x" + y)
         val res= standFormate.find { r-> x> r.rect.left.toFloat() &&
                                     x<r.rect.right.toFloat()  &&
                                     y>r.rect.top.toFloat()  &&
                                     y<r.rect.bottom.toFloat()  }
-//        res?.color?.setARGB(128,255,0,0)
+        res?.color?.setARGB(128,255,0,0)
 //        Log.i("ImageView",res.toString())
-//        standTexte()
         return res
-    }
-
-    fun selectStand(id:Int?){
-
     }
 
     fun standTexte(){
