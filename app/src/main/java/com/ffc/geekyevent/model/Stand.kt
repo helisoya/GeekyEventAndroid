@@ -5,7 +5,7 @@ data class Stand(
     val nom: String,
     val description: String,
     val typeStand: String,
-    val presta: String
+    val presta: Int
 )
 
 

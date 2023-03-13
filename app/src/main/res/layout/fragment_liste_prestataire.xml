@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Liste des stands"
+        android:text="Liste des prestataires"
         android:textAlignment="center"
         android:textSize="30dp" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nombre_de_stand" />
+        android:text="@string/nombre_de_presta" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_presta"

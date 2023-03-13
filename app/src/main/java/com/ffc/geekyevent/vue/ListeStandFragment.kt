@@ -33,7 +33,7 @@ class VueStandFragment : Fragment() {
         // Inflate the layout for this fragment
         val inflate = inflater.inflate(R.layout.fragment_liste_stand, container, false)
 
-        val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_stand)
+        val recyclerView = inflate.findViewById<RecyclerView>(R.id.recycler_view_presta)
 
         recyclerView.adapter = ItemStandAdapter(standViewModel.listeStand)
         recyclerView.setHasFixedSize(true) //=veut dire que la liste a la meme taille
@@ -78,6 +78,6 @@ class ItemStandAdapter(private val dataset: List<Stand>)
         holder.idStand.text = item.id.toString();
         holder.descriptionStand.text =  item.description;
         holder.typeStand.text = item.typeStand
-        holder.nomPresta.text =  item.presta;
+        holder.nomPresta.text =  item.presta.toString()
     }
 }

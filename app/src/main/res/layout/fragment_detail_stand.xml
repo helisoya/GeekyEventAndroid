@@ -31,11 +31,11 @@
         android:layout_height="wrap_content"
         android:text="Id type stand" />
 
-    <TextView
-        android:id="@+id/nomPresta"
+    <Button
+        android:id="@+id/buttonPresta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="nom du stand" />
+        android:text="Voir Prestataire" />
 
 
 </LinearLayout>

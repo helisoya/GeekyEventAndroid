@@ -58,6 +58,9 @@
         <argument
             android:name="idStand"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailStand2_to_detailPrestataire"
+            app:destination="@id/detailPrestataire" />
     </fragment>
     <fragment
         android:id="@+id/detailEvent"
@@ -68,6 +71,22 @@
             app:destination="@id/detailStand2" />
         <argument
             android:name="idEvent"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPrestataires"
+        android:name="com.ffc.geekyevent.vue.FragmentPrestataires"
+        android:label="FragmentPrestataires" >
+        <action
+            android:id="@+id/action_fragmentPrestataires_to_detailPrestataire"
+            app:destination="@id/detailPrestataire" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPrestataire"
+        android:name="com.ffc.geekyevent.vue.DetailPrestataire"
+        android:label="DetailPrestataire" >
+        <argument
+            android:name="id"
             app:argType="integer" />
     </fragment>
 </navigation>
