@@ -1,5 +1,6 @@
 package com.ffc.geekyevent.vue
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -29,26 +30,24 @@ class DetailEvent : Fragment() {
         return inflater.inflate(R.layout.fragment_detail_event, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail evenement"
         val args = DetailEventArgs.fromBundle(requireArguments())
 
 
         data = standViewModel.listeEvenement.find { s -> s.id == args.idEvent }!!
-        if (data != null) {
-            view.findViewById<TextView>(R.id.nomEvent).text = data.nom
-            view.findViewById<TextView>(R.id.idEvent).text = data.id.toString()
-            view.findViewById<TextView>(R.id.date).text = data.dateDebut+" - "+data.dateFin
-            view.findViewById<TextView>(R.id.nbJoueurs).text = "Joueurs : "+data.nbJoueursInscrit.toString()+"/"+data.nbJoueursMax.toString()
-        }
+        view.findViewById<TextView>(R.id.nomEvent).text = data.nom
+        view.findViewById<TextView>(R.id.idEvent).text = data.id.toString()
+        view.findViewById<TextView>(R.id.date).text = data.dateDebut+" - "+data.dateFin
+        view.findViewById<TextView>(R.id.nbJoueurs).text = "Joueurs : "+data.nbJoueursInscrit.toString()+"/"+data.nbJoueursMax.toString()
         view.findViewById<TextView>(R.id.buttonStand).setOnClickListener {
-            Log.println(Log.INFO,"Hello","Start")
             view.findNavController().navigate(
             DetailEventDirections.actionDetailEventToDetailStand2(
                 data.idStand
             ))
         }
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail evenement"
     }
 
 }

@@ -34,7 +34,7 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
     val HEIGHT = 1200;
 
     var isconnected =false
-    var user=null
+    var user:Prestataire? =null
 
     init{
         _listeStand = Datasource().loadStand()//data stand
@@ -42,6 +42,8 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         _listeEvenement = Datasource().loadEvents()
         loadCarte(application,WIDTH/126,HEIGHT/88)//svg pour afficher carte
         syncCarteWithModel()
+        user = _listePresta[0]
+        isconnected =true
     }
 
     fun annalyserClick(x:Float,y:Float) : RectStand? {
@@ -50,8 +52,19 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
                                     y>r.rect.top.toFloat()  &&
                                     y<r.rect.bottom.toFloat()  }
         res?.color?.setARGB(128,255,0,0)
-//        Log.i("ImageView",res.toString())
         return res
+    }
+
+    fun connection(pseudo: String,password:String):Boolean{
+        val res= _listePresta.find { p->
+            p.username==pseudo && p.password==password
+        }
+        if (res!=null){
+            isconnected=true
+            user =res
+            return true
+        }else
+            return false
     }
 
 

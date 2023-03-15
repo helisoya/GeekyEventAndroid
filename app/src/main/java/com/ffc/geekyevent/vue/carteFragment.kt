@@ -1,14 +1,19 @@
 package com.ffc.geekyevent.vue
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.graphics.*
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -48,13 +53,26 @@ class carteFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (standViewModel.isconnected)
+            view.findViewById<TextView>(R.id.TextHautCarte).text = "Cliquez sur un emplacement vide pour créer un stand"
+        else
+            view.findViewById<TextView>(R.id.TextHautCarte).text ="Vous devez être connectés pour éditer la carte"
+
         mImageView = view.findViewById(R.id.imageView2)
-        mImageView.setOnTouchListener{ view, event ->
+        mImageView.setOnTouchListener{ v, event ->
             if (event.action == MotionEvent.ACTION_DOWN){
                 val res= standViewModel.annalyserClick(event.x,event.y)
-//                    drawSomething()
-                if (res != null && res.exist) {
+                if ((res != null) && res.exist) {
                     view.findNavController().navigate(carteFragmentDirections.actionCarteFragmentToDetailStand2(res.id.toInt()))
+                }else if (res!=null && standViewModel.isconnected){
+                    val alert = AlertDialog.Builder(view.context)
+                        .setMessage("Voulez-vous ajouter un stand sur l'emplacement "+res.id+" ?")
+                        .setPositiveButton("OUI",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                // START THE GAME!
+                            })
+                        .setNegativeButton("NON"){d,i->}
+                    alert.create().show();
                 }
             }
             return@setOnTouchListener true

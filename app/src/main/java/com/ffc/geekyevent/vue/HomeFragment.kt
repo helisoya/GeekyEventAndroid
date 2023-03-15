@@ -38,6 +38,10 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarteFragment())
         }
 
+        if (standViewModel.isconnected)
+            binding.messageConnactionHome.text = "Bienvenue : "+standViewModel.user?.username
+        else
+            binding.messageConnactionHome.text = ""
         binding.nbStand.text = "Nombre de stands sur l'vevenement : "+standViewModel.listeStand.size
 
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Acceuil"

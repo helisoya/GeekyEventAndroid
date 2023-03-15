@@ -1,21 +1,21 @@
 package com.ffc.geekyevent.vue
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.databinding.FragmentConnectionBinding
-import com.ffc.geekyevent.model.Prestataire
 import com.ffc.geekyevent.viewmodel.StandViewModel
-import com.google.android.material.button.MaterialButton
 
 /**
  * A simple [Fragment] subclass.
@@ -24,17 +24,8 @@ import com.google.android.material.button.MaterialButton
  */
 class Connection : Fragment() {
 
-    lateinit var pseudo : MaterialButton
-    lateinit var password : MaterialButton
-
     lateinit var dataBinding: FragmentConnectionBinding
     private val standViewModel: StandViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,17 +36,24 @@ class Connection : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.ButtonConnection).setOnClickListener { view->
-            if (verif(dataBinding.InputPseudo.text.toString(),dataBinding.InputPassword.text.toString())!=null)
-                Toast.makeText(context,"OK",Toast.LENGTH_LONG).show()
-            else
-                Toast.makeText(context,"ERROR",Toast.LENGTH_LONG).show()
+        val t = view.findViewById<TextView>(R.id.messageValidConnection)
+        if (standViewModel.isconnected)
+            t.text="Bienvenue : "+ standViewModel.user?.username
+        else
+            t.text=""
+
+        view.findViewById<Button>(R.id.ButtonConnection).setOnClickListener {
+            if (standViewModel.connection(dataBinding.InputPseudo.text.toString(),dataBinding.InputPassword.text.toString())) {
+                Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
+                t.text="Bienvenue : "+ standViewModel.user?.username
+                t.setBackgroundColor(Color.GREEN);
+            }
+            else {
+                Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
+                t.text="Mauvais identifiant ou mot de passe"
+                t.setBackgroundColor(Color.RED);
+            }
         }
     }
 
-    fun verif(pseudo: String,password:String):Prestataire?{
-        return standViewModel.listePresta.find { p->
-            p.username==pseudo && p.password==password
-        }
-    }
 }
