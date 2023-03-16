@@ -67,10 +67,9 @@ class carteFragment : Fragment() {
                 }else if (res!=null && standViewModel.isconnected){
                     val alert = AlertDialog.Builder(view.context)
                         .setMessage("Voulez-vous ajouter un stand sur l'emplacement "+res.id+" ?")
-                        .setPositiveButton("OUI",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                // START THE GAME!
-                            })
+                        .setPositiveButton("OUI") { dialog, id ->
+                            view.findNavController().navigate(carteFragmentDirections.actionCarteFragmentToAddStand(res.id))
+                        }
                         .setNegativeButton("NON"){d,i->}
                     alert.create().show();
                 }

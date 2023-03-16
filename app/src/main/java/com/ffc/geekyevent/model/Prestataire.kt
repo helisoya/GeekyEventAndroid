@@ -7,4 +7,10 @@ data class Prestataire(
     val mail: String,
     val username: String,
     val password: String
-)
+
+
+) {
+    override fun toString(): String {
+        return "$nom $prenom ($id)"
+    }
+}

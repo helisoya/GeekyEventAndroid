@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_carteFragment_to_vueStandFragment"
             app:destination="@id/vueStandFragment" />
+        <action
+            android:id="@+id/action_carteFragment_to_addStand"
+            app:destination="@id/addStand" />
     </fragment>
     <fragment
         android:id="@+id/detailStand2"
@@ -94,4 +97,17 @@
         android:name="com.ffc.geekyevent.vue.Connection"
         android:label="fragment_connection"
         tools:layout="@layout/fragment_connection" />
+    <fragment
+        android:id="@+id/addStand"
+        android:name="com.ffc.geekyevent.vue.AddStand"
+        android:label="fragment_add_stand"
+        tools:layout="@layout/fragment_add_stand" >
+        <argument
+            android:name="Nstand"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addStand_to_carteFragment"
+            app:destination="@id/carteFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 </navigation>

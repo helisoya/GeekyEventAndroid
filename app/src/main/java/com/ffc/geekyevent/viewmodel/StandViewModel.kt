@@ -15,9 +15,13 @@ import org.simpleframework.xml.core.Persister
 import java.io.InputStreamReader
 
 class StandViewModel(application: Application) : AndroidViewModel(application) {
-    private var _listeStand : List<Stand>
-    val listeStand :List<Stand>
+    private var _listeStand = mutableListOf<Stand>()
+    val listeStand :MutableList<Stand>
         get() = _listeStand
+
+    private var _listeTypeStand : List<String>
+    val listeTypeStand : List<String>
+        get() = _listeTypeStand
 
     private var _listePresta : List<Prestataire>
     val listePresta : List<Prestataire>
@@ -37,9 +41,10 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
     var user:Prestataire? =null
 
     init{
-        _listeStand = Datasource().loadStand()//data stand
+        _listeStand.addAll(Datasource().loadStand())//data stand
         _listePresta = Datasource().loadPrestataires()
         _listeEvenement = Datasource().loadEvents()
+        _listeTypeStand = Datasource().loadTypeStand()
         loadCarte(application,WIDTH/126,HEIGHT/88)//svg pour afficher carte
         syncCarteWithModel()
         user = _listePresta[0]
@@ -51,8 +56,15 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
                                     x<r.rect.right.toFloat()  &&
                                     y>r.rect.top.toFloat()  &&
                                     y<r.rect.bottom.toFloat()  }
-        res?.color?.setARGB(128,255,0,0)
         return res
+    }
+
+    fun addStand(id:Int,nom:String,description:String,type:String,presta :Prestataire){
+        _listeStand.add(Stand(id,nom,description, type, presta.id))
+        _listeStand.sortBy { stand -> stand.id }
+        val res = standFormate.find{r-> r.id.toInt()==id} !!
+        res.color.setARGB(128,255,0,0)
+        res.exist=true
     }
 
     fun connection(pseudo: String,password:String):Boolean{
