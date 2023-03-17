@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.ffc.geekyevent.vue.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_fragment2View"
             app:destination="@id/FragmentEvents" />
@@ -19,12 +19,15 @@
         <action
             android:id="@+id/action_homeFragment_to_carteFragment"
             app:destination="@id/carteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listStandTimeline"
+            app:destination="@id/listStandTimeline" />
     </fragment>
     <fragment
         android:id="@+id/FragmentEvents"
         android:name="com.ffc.geekyevent.vue.FragmentEvents"
         android:label="fragment2_view"
-        tools:layout="@layout/fragment_events" >
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_fragment2View_to_detailEvent"
             app:destination="@id/detailEvent" />
@@ -33,7 +36,7 @@
         android:id="@+id/vueStandFragment"
         android:name="com.ffc.geekyevent.vue.VueStandFragment"
         android:label="fragment_vue_stand"
-        tools:layout="@layout/fragment_liste_stand" >
+        tools:layout="@layout/fragment_liste_stand">
         <action
             android:id="@+id/action_vueStandFragment_to_detailStand2"
             app:destination="@id/detailStand2" />
@@ -42,7 +45,7 @@
         android:id="@+id/carteFragment"
         android:name="com.ffc.geekyevent.vue.carteFragment"
         android:label="fragment_carte"
-        tools:layout="@layout/fragment_carte" >
+        tools:layout="@layout/fragment_carte">
         <action
             android:id="@+id/action_carteFragment_to_detailStand2"
             app:destination="@id/detailStand2" />
@@ -57,7 +60,7 @@
         android:id="@+id/detailStand2"
         android:name="com.ffc.geekyevent.vue.DetailStand"
         android:label="fragment_detail_stand"
-        tools:layout="@layout/fragment_detail_stand" >
+        tools:layout="@layout/fragment_detail_stand">
         <argument
             android:name="idStand"
             app:argType="integer" />
@@ -79,7 +82,7 @@
     <fragment
         android:id="@+id/fragmentPrestataires"
         android:name="com.ffc.geekyevent.vue.FragmentPrestataires"
-        android:label="FragmentPrestataires" >
+        android:label="FragmentPrestataires">
         <action
             android:id="@+id/action_fragmentPrestataires_to_detailPrestataire"
             app:destination="@id/detailPrestataire" />
@@ -87,7 +90,7 @@
     <fragment
         android:id="@+id/detailPrestataire"
         android:name="com.ffc.geekyevent.vue.DetailPrestataire"
-        android:label="DetailPrestataire" >
+        android:label="DetailPrestataire">
         <argument
             android:name="id"
             app:argType="integer" />
@@ -97,6 +100,10 @@
         android:name="com.ffc.geekyevent.vue.Connection"
         android:label="fragment_connection"
         tools:layout="@layout/fragment_connection" />
+    <fragment
+        android:id="@+id/listStandTimeline"
+        android:name="com.ffc.geekyevent.vue.ListStandTimeline"
+        android:label="ListStandTimeline" />
     <fragment
         android:id="@+id/addStand"
         android:name="com.ffc.geekyevent.vue.AddStand"

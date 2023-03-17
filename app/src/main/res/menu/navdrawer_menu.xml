@@ -17,4 +17,7 @@
     <item
         android:id="@+id/fragmentPrestataires"
         android:title="Prestataires" />
+    <item
+        android:id="@+id/action_homeFragment_to_listStandTimeline"
+        android:title="Timeline" />
 </menu>
