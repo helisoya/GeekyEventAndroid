@@ -8,4 +8,7 @@
     <string name="presentation_event">Geeky Event est un festival de la culture Geek ou vous pouvez participer à des tournois, regarder des conférences ou encore acheter des crepes.</string>
     <string name="nombre_de_events">nombre d\'evenements : %s</string>
     <string name="nombre_de_presta">nombre de prestataires : %s</string>
+    <string name="previous">Previous</string>
+    <string name="standname">standName</string>
+    <string name="next">Next</string>
 </resources>

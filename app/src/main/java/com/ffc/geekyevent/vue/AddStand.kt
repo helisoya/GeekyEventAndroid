@@ -1,8 +1,7 @@
 package com.ffc.geekyevent.vue
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.ffc.geekyevent.R
@@ -31,13 +29,14 @@ class AddStand : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_add_stand, container, false)
         dataB = DataBindingUtil.inflate(inflater,R.layout.fragment_add_stand,container,false)
         return dataB.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args = AddStandArgs.fromBundle(requireArguments()).nstand
@@ -45,12 +44,12 @@ class AddStand : Fragment() {
 
         val data = standViewModel.listePresta
         val adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, data)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dataB.spinner.adapter = adapter
 
         val typeStand = standViewModel.listeTypeStand
         val adapterTypeStand = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, typeStand)
-        adapterTypeStand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterTypeStand.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dataB.editTypeStand.adapter = adapterTypeStand
 
         dataB.button.setOnClickListener {
