@@ -5,7 +5,8 @@ data class Stand(
     val nom: String,
     val description: String,
     val typeStand: String,
-    val presta: Int
+    val presta: Int,
+    val commentaires: MutableList<String>
 )
 
 

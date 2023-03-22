@@ -60,7 +60,7 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addStand(id:Int,nom:String,description:String,type:String,presta :Prestataire){
-        _listeStand.add(Stand(id,nom,description, type, presta.id))
+        _listeStand.add(Stand(id,nom,description, type, presta.id, mutableListOf()))
         _listeStand.sortBy { stand -> stand.id }
         val res = standFormate.find{r-> r.id.toInt()==id} !!
         res.color.setARGB(128,255,0,0)

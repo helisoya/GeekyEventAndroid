@@ -59,7 +59,7 @@ class carteFragment : Fragment() {
             view.findViewById<TextView>(R.id.TextHautCarte).text ="Vous devez être connectés pour éditer la carte"
 
         mImageView = view.findViewById(R.id.imageView2)
-        mImageView.setOnTouchListener{ v, event ->
+        mImageView.setOnTouchListener{ _, event ->
             if (event.action == MotionEvent.ACTION_DOWN){
                 val res= standViewModel.annalyserClick(event.x,event.y)
                 if ((res != null) && res.exist) {
