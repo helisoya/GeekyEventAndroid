@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -35,8 +37,22 @@ class DetailStand : Fragment() {
             view.findViewById<TextView>(R.id.idStand).text = data.id.toString()
             view.findViewById<TextView>(R.id.descriptionStand).text = data.description
             view.findViewById<TextView>(R.id.typeStand).text = data.typeStand
+
+            if(standViewModel.isconnected && standViewModel.user?.id == data.presta){
+                view.findViewById<Button>(R.id.buttonDeleteStand).isVisible = true;
+                view.findViewById<Button>(R.id.buttonDeleteStand).setOnClickListener{
+                    val moveTo = data.presta;
+                    standViewModel.removeStand(data)
+                    view.findNavController().navigate(
+                        DetailStandDirections.actionDetailStand2ToVueStandFragment(
+                        ))
+
+                }
+            }else{
+                view.findViewById<Button>(R.id.buttonDeleteStand).isVisible = false;
+            }
         }
-        view.findViewById<TextView>(R.id.buttonPresta).setOnClickListener {
+        view.findViewById<Button>(R.id.buttonPresta).setOnClickListener {
             if(data != null){
                 view.findNavController().navigate(
                     DetailStandDirections.actionDetailStand2ToDetailPrestataire(
@@ -45,6 +61,9 @@ class DetailStand : Fragment() {
             }
 
         }
+
+
+
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail stand"
     }
 

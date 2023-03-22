@@ -66,7 +66,12 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_detailStand2_to_detailPrestataire"
-            app:destination="@id/detailPrestataire" />
+            app:destination="@id/detailPrestataire"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_detailStand2_to_vueStandFragment"
+            app:destination="@id/vueStandFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailEvent"

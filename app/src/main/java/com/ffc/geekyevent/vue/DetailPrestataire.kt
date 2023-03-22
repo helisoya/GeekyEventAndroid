@@ -37,7 +37,7 @@ class DetailPrestataire : Fragment() {
         view.findViewById<TextView>(R.id.mailPresta).text = data.mail
         view.findViewById<TextView>(R.id.pseudoPrest).text = data.username
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail evenement"
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Detail Prestataire"
     }
 
 }

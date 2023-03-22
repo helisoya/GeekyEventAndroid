@@ -67,6 +67,14 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         res.exist=true
     }
 
+    fun removeStand(stand:Stand){
+        val id = stand.id
+        _listeStand.remove(stand)
+        val res = standFormate.find{r-> r.id.toInt()==id} !!
+        res.color.setARGB(255,0,0,0)
+        res.exist=false
+    }
+
     fun connection(pseudo: String,password:String):Boolean{
         val res= _listePresta.find { p->
             p.username==pseudo && p.password==password
