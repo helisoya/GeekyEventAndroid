@@ -12,13 +12,19 @@
         android:layout_height="wrap_content"
         android:text="Liste des Evenements"
         android:textAlignment="center"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nombre_de_events" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_events"

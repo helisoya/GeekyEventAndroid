@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -38,6 +39,9 @@ class DetailEvent : Fragment() {
 
 
         data = standViewModel.listeEvenement.find { s -> s.id == args.idEvent }!!
+
+        val dataStand = standViewModel.listeStand.find { s -> s.id == data.idStand }
+
         view.findViewById<TextView>(R.id.nomEvent).text = data.nom
         view.findViewById<TextView>(R.id.idEvent).text = data.id.toString()
         view.findViewById<TextView>(R.id.date).text = data.dateDebut+" - "+data.dateFin
@@ -47,6 +51,11 @@ class DetailEvent : Fragment() {
             DetailEventDirections.actionDetailEventToDetailStand2(
                 data.idStand
             ))
+        }
+        view.findViewById<TextView>(R.id.buttonStand2).isVisible = standViewModel.isconnected && standViewModel.user?.id == dataStand?.presta
+        view.findViewById<TextView>(R.id.buttonStand2).setOnClickListener {
+            standViewModel.removeEvent(data)
+            view.findNavController().navigate(DetailEventDirections.actionDetailEventToFragmentEvents())
         }
     }
 

@@ -27,8 +27,8 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
     val listePresta : List<Prestataire>
         get() = _listePresta
 
-    private var _listeEvenement : List<Event>
-    val listeEvenement : List<Event>
+    private var _listeEvenement = mutableListOf<Event>()
+    val listeEvenement : MutableList<Event>
         get() = _listeEvenement
 
     var standFormate = ArrayList<RectStand>()
@@ -43,7 +43,7 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
     init{
         _listeStand.addAll(Datasource().loadStand())//data stand
         _listePresta = Datasource().loadPrestataires()
-        _listeEvenement = Datasource().loadEvents()
+        _listeEvenement.addAll(Datasource().loadEvents())
         _listeTypeStand = Datasource().loadTypeStand()
         loadCarte(application,WIDTH/126,HEIGHT/88)//svg pour afficher carte
         syncCarteWithModel()
@@ -67,12 +67,21 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         res.exist=true
     }
 
+    fun addEvent(id:Int,nom:String,heureDebut:String,heureFin:String,stand:Stand,nbrParticipant:Int){
+        _listeEvenement.add(Event(id,stand.id,nom,heureDebut,heureFin,nbrParticipant,0))
+        _listeStand.sortBy { event -> event.id }
+    }
+
     fun removeStand(stand:Stand){
         val id = stand.id
         _listeStand.remove(stand)
         val res = standFormate.find{r-> r.id.toInt()==id} !!
         res.color.setARGB(255,0,0,0)
         res.exist=false
+    }
+
+    fun removeEvent(event:Event){
+        _listeEvenement.remove(event)
     }
 
     fun connection(pseudo: String,password:String):Boolean{

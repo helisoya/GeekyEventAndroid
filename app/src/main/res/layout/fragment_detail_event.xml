@@ -36,5 +36,11 @@
         android:layout_height="wrap_content"
         android:text="Voir Stand" />
 
+    <Button
+        android:id="@+id/buttonStand2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supprimer" />
+
 
 </LinearLayout>

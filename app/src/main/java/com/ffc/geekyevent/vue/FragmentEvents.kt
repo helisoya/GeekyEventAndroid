@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -40,9 +41,15 @@ class FragmentEvents : Fragment() {
         recyclerView.adapter = ItemEventsAdapter(data)
         recyclerView.setHasFixedSize(true)
 
+
         inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
         getString(R.string.nombre_de_events,data.size)
 
+        inflate.findViewById<TextView>(R.id.button6).isVisible = standViewModel.isconnected
+        inflate.findViewById<TextView>(R.id.button6).setOnClickListener{
+            container?.findNavController()?.navigate(R.id.action_FragmentEvents_to_addEvent)
+        }
+        
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Liste des evenements"
         return inflate
     }

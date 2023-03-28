@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_fragment2View_to_detailEvent"
             app:destination="@id/detailEvent" />
+        <action
+            android:id="@+id/action_FragmentEvents_to_addEvent"
+            app:destination="@id/addEvent" />
     </fragment>
     <fragment
         android:id="@+id/vueStandFragment"
@@ -83,6 +86,10 @@
         <argument
             android:name="idEvent"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailEvent_to_FragmentEvents"
+            app:destination="@id/FragmentEvents"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPrestataires"
@@ -121,5 +128,14 @@
             android:id="@+id/action_addStand_to_carteFragment"
             app:destination="@id/carteFragment"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEvent"
+        android:name="com.ffc.geekyevent.vue.AddEvent"
+        android:label="Add Event"
+        tools:layout="@layout/fragment_add_event">
+        <action
+            android:id="@+id/action_addEvent_to_FragmentEvents"
+            app:destination="@id/FragmentEvents" />
     </fragment>
 </navigation>
