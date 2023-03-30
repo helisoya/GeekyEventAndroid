@@ -1,5 +1,6 @@
 package com.ffc.geekyevent.vue
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,26 +11,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuInflater
+import androidx.appcompat.widget.SearchView
+import android.widget.Filter
+import android.widget.Filterable
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Datasource
 import com.ffc.geekyevent.model.Event
 import com.ffc.geekyevent.model.Prestataire
 import com.ffc.geekyevent.model.Stand
 import com.ffc.geekyevent.viewmodel.StandViewModel
-import javax.sql.DataSource
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
  * Use the [FragmentEvents.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentPrestataires : Fragment() {
+class FragmentPrestataires : Fragment(), SearchView.OnQueryTextListener {
 
     private val standViewModel: StandViewModel by activityViewModels()
+    private lateinit var itemPrestataireAdapter: ItemPrestataireAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
+    @SuppressLint("StringFormatInvalid", "StringFormatMatches")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +49,8 @@ class FragmentPrestataires : Fragment() {
         // Inflate the layout for this fragment
 //        val source =  Datasource()
         val data = standViewModel.listePresta
-        recyclerView.adapter = ItemPrestataireAdapter(data)
+        itemPrestataireAdapter = ItemPrestataireAdapter(data)
+        recyclerView.adapter = itemPrestataireAdapter
         recyclerView.setHasFixedSize(true)
 
         inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
@@ -50,11 +60,29 @@ class FragmentPrestataires : Fragment() {
         return inflate
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(this)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        itemPrestataireAdapter.filter.filter(newText)
+        return true
+    }
 }
 
 
 class ItemPrestataireAdapter(private val dataset: List<Prestataire>)
-    : RecyclerView.Adapter<ItemPrestataireAdapter.ItemViewHolder>() {
+    : RecyclerView.Adapter<ItemPrestataireAdapter.ItemViewHolder>(), Filterable {
+
+    private var filteredDataset: List<Prestataire> = dataset
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val nomPresta: TextView = view.findViewById(R.id.nomPresta)
@@ -66,8 +94,6 @@ class ItemPrestataireAdapter(private val dataset: List<Prestataire>)
             .inflate(R.layout.prestataire_item, parent, false)
         val detailPresta = ItemViewHolder(adapterLayout)
         adapterLayout.setOnClickListener {
-
-
             parent.findNavController().navigate(
                 FragmentPrestatairesDirections.actionFragmentPrestatairesToDetailPrestataire(
                     detailPresta.idPresta.text.toString().toInt()
@@ -79,12 +105,41 @@ class ItemPrestataireAdapter(private val dataset: List<Prestataire>)
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return filteredDataset.size
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item: Prestataire = dataset[position]
+        val item: Prestataire = filteredDataset[position]
         holder.nomPresta.text = item.prenom + " " +item.nom;
         holder.idPresta.text = item.id.toString();
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filterString = constraint.toString().toLowerCase(Locale.ROOT).trim()
+
+                filteredDataset = if (filterString.isEmpty()) {
+                    dataset
+                } else {
+                    dataset.filter { presta ->
+                        presta.nom.toLowerCase(Locale.ROOT).contains(filterString)
+                                || presta.prenom.toLowerCase(Locale.ROOT).contains(filterString)
+                                || presta.username.toLowerCase(Locale.ROOT).contains(filterString)
+                    }
+                }
+                return FilterResults().apply {
+                    values = filteredDataset
+                }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                results?.values?.let {
+                    filteredDataset = it as List<Prestataire>
+                    notifyDataSetChanged()
+                }
+            }
+        }
     }
 }
