@@ -47,9 +47,9 @@ class DetailStand : Fragment() {
         dataBinding.descriptionStand.text = data.description
         dataBinding.typeStand.text = data.typeStand
         dataBinding.listeCommentaire.adapter = ItemCommentaireAdapter(data.commentaires)
-        dataBinding.listeCommentaire.layoutManager = LinearLayoutManager(view.context);
+        dataBinding.listeCommentaire.layoutManager = LinearLayoutManager(view.context)
         dataBinding.listeEvent.adapter = ItemEventAdapter(dataEvent)
-        dataBinding.listeEvent.layoutManager = LinearLayoutManager(view.context);
+        dataBinding.listeEvent.layoutManager = LinearLayoutManager(view.context)
 
         dataBinding.buttonDeleteStand.isVisible = standViewModel.isconnected && standViewModel.user?.id == data.presta
         dataBinding.buttonDeleteStand.setOnClickListener{
@@ -115,6 +115,9 @@ class ItemEventAdapter(private val dataset: List<Event>)
             .inflate(R.layout.item_event, parent, false)
         val itemHolder = ItemViewHolder(adapterLayout)
         Log.i("------",itemHolder.toString())
+        adapterLayout.setOnClickListener {
+            parent.findNavController().navigate(DetailStandDirections.actionDetailStand2ToDetailEvent(dataset[viewType].id))
+        }//utiliser si on veut aller sur la page de l'event
 
         return itemHolder
     }
