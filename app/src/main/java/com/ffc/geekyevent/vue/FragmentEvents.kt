@@ -17,6 +17,7 @@ import android.view.MenuInflater
 import androidx.appcompat.widget.SearchView
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.text.HtmlCompat
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.model.Event
 import com.ffc.geekyevent.viewmodel.StandViewModel
@@ -67,6 +68,7 @@ class FragmentEvents : Fragment(), SearchView.OnQueryTextListener {
         inflater.inflate(R.menu.menu_main, menu)
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = HtmlCompat.fromHtml("<font color = #ffffff> Recherche par nom d'évenement</font>", HtmlCompat.FROM_HTML_MODE_LEGACY)
         searchView.setOnQueryTextListener(this)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -87,7 +89,7 @@ class ItemEventsAdapter(private val dataset: List<Event>)
 
     private var filteredDataset = dataset
 
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val nomEvent: TextView = view.findViewById(R.id.nomEvent)
         val idEvent: TextView = view.findViewById(R.id.idEvent)
     }
@@ -121,14 +123,14 @@ class ItemEventsAdapter(private val dataset: List<Event>)
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val filterString = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                val filterString = constraint.toString().lowercase().trim()
 
                 filteredDataset = if (filterString.isEmpty()) {
                     dataset
                 } else {
                     val resultList = ArrayList<Event>()
                     for (row in dataset) {
-                        if (row.nom.toLowerCase().contains(filterString.toLowerCase())) {
+                        if (row.nom.lowercase().contains(filterString.lowercase())) {
                             resultList.add(row)
                         }
                     }

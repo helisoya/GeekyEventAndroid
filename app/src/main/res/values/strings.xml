@@ -11,5 +11,5 @@
     <string name="previous">Previous</string>
     <string name="standname">standName</string>
     <string name="next">Next</string>
-    <string name="search">Rechercher...</string>
+    <string name="search">Rechercher (nom ou categorie)</string>
 </resources>

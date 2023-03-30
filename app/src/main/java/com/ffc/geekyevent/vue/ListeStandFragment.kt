@@ -11,8 +11,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
@@ -52,11 +52,12 @@ class VueStandFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_main, menu)
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = HtmlCompat.fromHtml("<font color = #ffffff>Recherche (nom, type,  description)</font>", HtmlCompat.FROM_HTML_MODE_LEGACY)
         searchView.setOnQueryTextListener(this)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -74,7 +75,7 @@ class ItemStandAdapter(private val dataset: List<Stand>)
 
     private var filteredDataset: List<Stand> = dataset
 
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val nomStand: TextView = view.findViewById(R.id.nomStand)
         val idStand: TextView = view.findViewById(R.id.idStand)
         val descriptionStand: TextView = view.findViewById(R.id.descriptionStand)
@@ -109,15 +110,15 @@ class ItemStandAdapter(private val dataset: List<Stand>)
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val filterString = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                val filterString = constraint.toString().lowercase().trim()
 
                 filteredDataset = if (filterString.isEmpty()) {
                     dataset
                 } else {
                     dataset.filter { stand ->
-                        stand.nom.toLowerCase(Locale.ROOT).contains(filterString)
-                                || stand.description.toLowerCase(Locale.ROOT).contains(filterString)
-                                || stand.typeStand.toLowerCase(Locale.ROOT).contains(filterString)
+                        stand.nom.lowercase().contains(filterString)
+                                || stand.description.lowercase().contains(filterString)
+                                || stand.typeStand.lowercase().contains(filterString)
                     }
                 }
                 return FilterResults().apply {

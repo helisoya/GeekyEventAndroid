@@ -16,11 +16,9 @@ import android.view.MenuInflater
 import androidx.appcompat.widget.SearchView
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.text.HtmlCompat
 import com.ffc.geekyevent.R
-import com.ffc.geekyevent.model.Datasource
-import com.ffc.geekyevent.model.Event
 import com.ffc.geekyevent.model.Prestataire
-import com.ffc.geekyevent.model.Stand
 import com.ffc.geekyevent.viewmodel.StandViewModel
 import java.util.*
 
@@ -65,6 +63,7 @@ class FragmentPrestataires : Fragment(), SearchView.OnQueryTextListener {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(this)
+        searchView.queryHint = HtmlCompat.fromHtml("<font color = #ffffff>Recherche par nom/prenom </font>", HtmlCompat.FROM_HTML_MODE_LEGACY)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -84,7 +83,7 @@ class ItemPrestataireAdapter(private val dataset: List<Prestataire>)
 
     private var filteredDataset: List<Prestataire> = dataset
 
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val nomPresta: TextView = view.findViewById(R.id.nomPresta)
         val idPresta: TextView = view.findViewById(R.id.idPresta)
     }
@@ -117,15 +116,15 @@ class ItemPrestataireAdapter(private val dataset: List<Prestataire>)
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val filterString = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                val filterString = constraint.toString().lowercase().trim()
 
                 filteredDataset = if (filterString.isEmpty()) {
                     dataset
                 } else {
                     dataset.filter { presta ->
-                        presta.nom.toLowerCase(Locale.ROOT).contains(filterString)
-                                || presta.prenom.toLowerCase(Locale.ROOT).contains(filterString)
-                                || presta.username.toLowerCase(Locale.ROOT).contains(filterString)
+                        presta.nom.lowercase().contains(filterString)
+                                || presta.prenom.lowercase().contains(filterString)
+                                || presta.username.lowercase().contains(filterString)
                     }
                 }
                 return FilterResults().apply {
