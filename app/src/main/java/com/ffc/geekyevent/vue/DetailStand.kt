@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ffc.geekyevent.R
 import com.ffc.geekyevent.databinding.FragmentDetailStandBinding
+import com.ffc.geekyevent.model.Event
 import com.ffc.geekyevent.viewmodel.StandViewModel
 
 class DetailStand : Fragment() {
@@ -37,6 +37,7 @@ class DetailStand : Fragment() {
         val args = DetailStandArgs.fromBundle(requireArguments())
 
         val data = standViewModel.listeStand.find { s -> s.id == args.idStand }
+        val dataEvent = standViewModel.listeEvenement.filter { s -> s.idStand == args.idStand }
         if (data==null){
             view.findNavController().navigate(DetailStandDirections.actionDetailStand2ToVueStandFragment())
             return
@@ -47,9 +48,15 @@ class DetailStand : Fragment() {
         dataBinding.typeStand.text = data.typeStand
         dataBinding.listeCommentaire.adapter = ItemCommentaireAdapter(data.commentaires)
         dataBinding.listeCommentaire.layoutManager = LinearLayoutManager(view.context);
+        dataBinding.listeEvent.adapter = ItemEventAdapter(dataEvent)
+        dataBinding.listeEvent.layoutManager = LinearLayoutManager(view.context);
 
         dataBinding.buttonDeleteStand.isVisible = standViewModel.isconnected && standViewModel.user?.id == data.presta
         dataBinding.buttonDeleteStand.setOnClickListener{
+            val events = standViewModel.listeEvenement.filter { s -> s.idStand == data.id }
+            for (event in events){
+                standViewModel.removeEvent(event)
+            }
             standViewModel.removeStand(data)
             view.findNavController().navigate(DetailStandDirections.actionDetailStand2ToVueStandFragment())
         }
@@ -71,7 +78,7 @@ class ItemCommentaireAdapter(private val dataset: List<String>)
     : RecyclerView.Adapter<ItemCommentaireAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val text: TextView = view.findViewById(R.id.textViewCommentaire)
+        val text: TextView = view.findViewById(R.id.textViewEvent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -93,5 +100,31 @@ class ItemCommentaireAdapter(private val dataset: List<String>)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
         holder.text.text =  item
+    }
+}
+
+class ItemEventAdapter(private val dataset: List<Event>)
+    : RecyclerView.Adapter<ItemEventAdapter.ItemViewHolder>() {
+
+    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        val text: TextView = view.findViewById(R.id.textViewEvent)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val adapterLayout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_event, parent, false)
+        val itemHolder = ItemViewHolder(adapterLayout)
+        Log.i("------",itemHolder.toString())
+
+        return itemHolder
+    }
+
+    override fun getItemCount(): Int {
+        return dataset.size
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val item = dataset[position]
+        holder.text.text =  item.nom
     }
 }

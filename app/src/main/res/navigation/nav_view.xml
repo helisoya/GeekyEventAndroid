@@ -75,6 +75,9 @@
             android:id="@+id/action_detailStand2_to_vueStandFragment"
             app:destination="@id/vueStandFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_detailStand2_to_detailEvent"
+            app:destination="@id/detailEvent" />
     </fragment>
     <fragment
         android:id="@+id/detailEvent"

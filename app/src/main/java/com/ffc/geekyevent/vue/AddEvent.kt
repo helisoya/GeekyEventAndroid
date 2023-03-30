@@ -42,7 +42,7 @@ class AddEvent: Fragment(){
         dataB.editTextTime3.setIs24HourView(true)
         val data = standViewModel.listeStand
         val args = standViewModel.listeEvenement.size+1
-        val adapter = data.filter { it.typeStand == "tournoi"}.map { it.nom }
+        val adapter = data.filter { it.presta == standViewModel.user?.id}.map { it.nom }
         val newAdapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, adapter)
         newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dataB.spinner2.adapter = newAdapter
