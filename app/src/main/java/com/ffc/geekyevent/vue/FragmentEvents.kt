@@ -2,6 +2,7 @@ package com.ffc.geekyevent.vue
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,11 +51,12 @@ class FragmentEvents : Fragment(), SearchView.OnQueryTextListener {
         recyclerView.adapter = itemEventsAdapter
         recyclerView.setHasFixedSize(true)
 
+        val listPresta = (standViewModel.listeStand.map { it.presta })
 
         inflate.findViewById<TextView>(R.id.textView2).text = activity?.applicationContext?.
         getString(R.string.nombre_de_events,data.size)
 
-        inflate.findViewById<TextView>(R.id.button6).isVisible = standViewModel.isconnected
+        inflate.findViewById<TextView>(R.id.button6).isVisible = standViewModel.user?.id in listPresta
         inflate.findViewById<TextView>(R.id.button6).setOnClickListener{
             container?.findNavController()?.navigate(R.id.action_FragmentEvents_to_addEvent)
         }
