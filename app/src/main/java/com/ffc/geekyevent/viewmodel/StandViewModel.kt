@@ -47,8 +47,8 @@ class StandViewModel(application: Application) : AndroidViewModel(application) {
         _listeTypeStand = Datasource().loadTypeStand()
         loadCarte(application,WIDTH/126,HEIGHT/88)//svg pour afficher carte
         syncCarteWithModel()
-        user = _listePresta[0]
-        isconnected =true
+        //user = _listePresta[0]
+        //isconnected =true
     }
 
     fun annalyserClick(x:Float,y:Float) : RectStand? {
