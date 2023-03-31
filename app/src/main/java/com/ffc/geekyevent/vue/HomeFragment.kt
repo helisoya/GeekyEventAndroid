@@ -39,10 +39,10 @@ class HomeFragment : Fragment() {
         }
 
         if (standViewModel.isconnected)
-            binding.messageConnactionHome.text = "Bienvenue : "+standViewModel.user?.username
+            binding.messageConnactionHome.text = "Bienvenu : "+standViewModel.user?.username
         else
             binding.messageConnactionHome.text = ""
-        binding.nbStand.text = "Nombre de stands sur l'evenement : "+standViewModel.listeStand.size
+        binding.nbStand.text = "Nombre de stands : "+standViewModel.listeStand.size
 
         (activity as AppCompatActivity?)?.supportActionBar?.title = "Accueil"
 //        setHasOptionsMenu(true)//menu option (3 petits points)

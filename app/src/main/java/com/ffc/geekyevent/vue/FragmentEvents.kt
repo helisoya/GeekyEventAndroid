@@ -62,7 +62,7 @@ class FragmentEvents : Fragment(), SearchView.OnQueryTextListener {
             container?.findNavController()?.navigate(R.id.action_FragmentEvents_to_addEvent)
         }
         
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Liste des evenements"
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Liste des événements"
         return inflate
     }
 

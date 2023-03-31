@@ -53,7 +53,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Listes commentaires :"
+            android:text="Liste commentaires :"
             android:textSize="30sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -89,7 +89,7 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Listes événements :"
+            android:text="Liste événements :"
             android:textSize="30sp" />
 
         <androidx.recyclerview.widget.RecyclerView

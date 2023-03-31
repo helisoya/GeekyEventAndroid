@@ -11,15 +11,15 @@ class Datasource {
         return listOf(
             Stand(300, "stand 300", "voici une description (stand avec commentaire)",
                 typeStand[0], 1, mutableListOf("bien","parfait","merveilleux stand")),
-            Stand(310, "stand 310", "voici une descirption (stand avec commentaire)",
+            Stand(310, "stand 310", "voici une description (stand avec commentaire)",
                 typeStand[1], 1, mutableListOf("hkgjdf","fchbekjfsc","fyusdhc","gfysdjc")),
-            Stand(305, "stand 305", "voici une descirption", typeStand[2], 2, mutableListOf()),
-            Stand(306, "stand 306", "voici une descirption", typeStand[2], 3, mutableListOf()),
+            Stand(305, "stand 305", "voici une description", typeStand[2], 2, mutableListOf()),
+            Stand(306, "stand 306", "voici une description", typeStand[2], 3, mutableListOf()),
             Stand(307, "stand test de tournoi", "fuiekhjkgrtgjrtlgjr", typeStand[3], 3, mutableListOf()),
-            Stand(320, "stand 320", "voici une descirption", typeStand[0], 1, mutableListOf()),
-            Stand(320, "stand 320", "voici une descirption", typeStand[1], 1, mutableListOf()),
-            Stand(325, "stand 325", "voici une descirption", typeStand[2], 2, mutableListOf()),
-            Stand(326, "stand 326", "voici une descirption", typeStand[2], 3, mutableListOf()),
+            Stand(320, "stand 320", "voici une description", typeStand[0], 1, mutableListOf()),
+            Stand(320, "stand 320", "voici une description", typeStand[1], 1, mutableListOf()),
+            Stand(325, "stand 325", "voici une description", typeStand[2], 2, mutableListOf()),
+            Stand(326, "stand 326", "voici une description", typeStand[2], 3, mutableListOf()),
             Stand(327, "stand test tournoi 327", "fuiekhjkgrtgjrtlgjr", typeStand[3], 2, mutableListOf())
         )
     }

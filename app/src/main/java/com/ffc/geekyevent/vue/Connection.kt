@@ -38,14 +38,14 @@ class Connection : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val t = view.findViewById<TextView>(R.id.messageValidConnection)
         if (standViewModel.isconnected)
-            t.text="Bienvenue : "+ standViewModel.user?.username
+            t.text="Bienvenu : "+ standViewModel.user?.username
         else
             t.text=""
 
         view.findViewById<Button>(R.id.ButtonConnection).setOnClickListener {
             if (standViewModel.connection(dataBinding.InputPseudo.text.toString(),dataBinding.InputPassword.text.toString())) {
                 Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
-                t.text="Bienvenue : "+ standViewModel.user?.username
+                t.text="Bienvenu : "+ standViewModel.user?.username
                 t.setBackgroundColor(Color.GREEN);
             }
             else {
